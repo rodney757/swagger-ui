@@ -13,6 +13,7 @@ var declare = require('gulp-declare');
 var watch = require('gulp-watch');
 var connect = require('gulp-connect');
 var header = require('gulp-header');
+var zip = require('gulp-zip');
 var pkg = require('./package.json');
 var order = require('gulp-order');
 var banner = ['/**',
@@ -71,6 +72,15 @@ gulp.task('dist', ['clean'], function() {
     .on('error', log)
     .pipe(gulp.dest('./dist'))
     .pipe(connect.reload());
+});
+
+/**
+ * create a zip distrivution
+ */
+gulp.task('archive', function (done) {
+	return gulp.src('dist/*')
+		.pipe(zip('swagger-ui.zip'))
+		.pipe(gulp.dest('archive'));
 });
 
 /**
